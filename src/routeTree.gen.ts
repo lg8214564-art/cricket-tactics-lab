@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BattingRouteImport } from './routes/batting'
 import { Route as FieldPlannerRouteImport } from './routes/field-planner'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BattingRoute = BattingRouteImport.update({
+  id: '/batting',
+  path: '/batting',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FieldPlannerRoute = FieldPlannerRouteImport.update({
@@ -25,27 +31,31 @@ const FieldPlannerRoute = FieldPlannerRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/batting': typeof BattingRoute
   '/field-planner': typeof FieldPlannerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/batting': typeof BattingRoute
   '/field-planner': typeof FieldPlannerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/batting': typeof BattingRoute
   '/field-planner': typeof FieldPlannerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/field-planner'
+  fullPaths: '/' | '/batting' | '/field-planner'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/field-planner'
-  id: '__root__' | '/' | '/field-planner'
+  to: '/' | '/batting' | '/field-planner'
+  id: '__root__' | '/' | '/batting' | '/field-planner'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BattingRoute: typeof BattingRoute
   FieldPlannerRoute: typeof FieldPlannerRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/batting': {
+      id: '/batting'
+      path: '/batting'
+      fullPath: '/batting'
+      preLoaderRoute: typeof BattingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/field-planner': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BattingRoute: BattingRoute,
   FieldPlannerRoute: FieldPlannerRoute,
 }
 export const routeTree = rootRouteImport
