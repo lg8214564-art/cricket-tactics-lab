@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BattingRouteImport } from './routes/batting'
+import { Route as BowlingRouteImport } from './routes/bowling'
+import { Route as ConditionsRouteImport } from './routes/conditions'
 import { Route as FieldPlannerRouteImport } from './routes/field-planner'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +25,16 @@ const BattingRoute = BattingRouteImport.update({
   path: '/batting',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BowlingRoute = BowlingRouteImport.update({
+  id: '/bowling',
+  path: '/bowling',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConditionsRoute = ConditionsRouteImport.update({
+  id: '/conditions',
+  path: '/conditions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FieldPlannerRoute = FieldPlannerRouteImport.update({
   id: '/field-planner',
   path: '/field-planner',
@@ -32,30 +44,44 @@ const FieldPlannerRoute = FieldPlannerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/batting': typeof BattingRoute
+  '/bowling': typeof BowlingRoute
+  '/conditions': typeof ConditionsRoute
   '/field-planner': typeof FieldPlannerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/batting': typeof BattingRoute
+  '/bowling': typeof BowlingRoute
+  '/conditions': typeof ConditionsRoute
   '/field-planner': typeof FieldPlannerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/batting': typeof BattingRoute
+  '/bowling': typeof BowlingRoute
+  '/conditions': typeof ConditionsRoute
   '/field-planner': typeof FieldPlannerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/batting' | '/field-planner'
+  fullPaths: '/' | '/batting' | '/bowling' | '/conditions' | '/field-planner'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/batting' | '/field-planner'
-  id: '__root__' | '/' | '/batting' | '/field-planner'
+  to: '/' | '/batting' | '/bowling' | '/conditions' | '/field-planner'
+  id:
+    | '__root__'
+    | '/'
+    | '/batting'
+    | '/bowling'
+    | '/conditions'
+    | '/field-planner'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BattingRoute: typeof BattingRoute
+  BowlingRoute: typeof BowlingRoute
+  ConditionsRoute: typeof ConditionsRoute
   FieldPlannerRoute: typeof FieldPlannerRoute
 }
 
@@ -75,6 +101,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BattingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bowling': {
+      id: '/bowling'
+      path: '/bowling'
+      fullPath: '/bowling'
+      preLoaderRoute: typeof BowlingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conditions': {
+      id: '/conditions'
+      path: '/conditions'
+      fullPath: '/conditions'
+      preLoaderRoute: typeof ConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/field-planner': {
       id: '/field-planner'
       path: '/field-planner'
@@ -88,6 +128,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BattingRoute: BattingRoute,
+  BowlingRoute: BowlingRoute,
+  ConditionsRoute: ConditionsRoute,
   FieldPlannerRoute: FieldPlannerRoute,
 }
 export const routeTree = rootRouteImport
