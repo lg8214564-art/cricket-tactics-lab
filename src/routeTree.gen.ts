@@ -14,6 +14,8 @@ import { Route as BattingRouteImport } from './routes/batting'
 import { Route as BowlingRouteImport } from './routes/bowling'
 import { Route as ConditionsRouteImport } from './routes/conditions'
 import { Route as FieldPlannerRouteImport } from './routes/field-planner'
+import { Route as GlossaryRouteImport } from './routes/glossary'
+import { Route as ScenariosRouteImport } from './routes/scenarios'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +42,16 @@ const FieldPlannerRoute = FieldPlannerRouteImport.update({
   path: '/field-planner',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GlossaryRoute = GlossaryRouteImport.update({
+  id: '/glossary',
+  path: '/glossary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScenariosRoute = ScenariosRouteImport.update({
+  id: '/scenarios',
+  path: '/scenarios',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +59,8 @@ export interface FileRoutesByFullPath {
   '/bowling': typeof BowlingRoute
   '/conditions': typeof ConditionsRoute
   '/field-planner': typeof FieldPlannerRoute
+  '/glossary': typeof GlossaryRoute
+  '/scenarios': typeof ScenariosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByTo {
   '/bowling': typeof BowlingRoute
   '/conditions': typeof ConditionsRoute
   '/field-planner': typeof FieldPlannerRoute
+  '/glossary': typeof GlossaryRoute
+  '/scenarios': typeof ScenariosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,12 +78,28 @@ export interface FileRoutesById {
   '/bowling': typeof BowlingRoute
   '/conditions': typeof ConditionsRoute
   '/field-planner': typeof FieldPlannerRoute
+  '/glossary': typeof GlossaryRoute
+  '/scenarios': typeof ScenariosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/batting' | '/bowling' | '/conditions' | '/field-planner'
+  fullPaths:
+    | '/'
+    | '/batting'
+    | '/bowling'
+    | '/conditions'
+    | '/field-planner'
+    | '/glossary'
+    | '/scenarios'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/batting' | '/bowling' | '/conditions' | '/field-planner'
+  to:
+    | '/'
+    | '/batting'
+    | '/bowling'
+    | '/conditions'
+    | '/field-planner'
+    | '/glossary'
+    | '/scenarios'
   id:
     | '__root__'
     | '/'
@@ -75,6 +107,8 @@ export interface FileRouteTypes {
     | '/bowling'
     | '/conditions'
     | '/field-planner'
+    | '/glossary'
+    | '/scenarios'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -83,6 +117,8 @@ export interface RootRouteChildren {
   BowlingRoute: typeof BowlingRoute
   ConditionsRoute: typeof ConditionsRoute
   FieldPlannerRoute: typeof FieldPlannerRoute
+  GlossaryRoute: typeof GlossaryRoute
+  ScenariosRoute: typeof ScenariosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -122,6 +158,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FieldPlannerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/glossary': {
+      id: '/glossary'
+      path: '/glossary'
+      fullPath: '/glossary'
+      preLoaderRoute: typeof GlossaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scenarios': {
+      id: '/scenarios'
+      path: '/scenarios'
+      fullPath: '/scenarios'
+      preLoaderRoute: typeof ScenariosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -131,6 +181,8 @@ const rootRouteChildren: RootRouteChildren = {
   BowlingRoute: BowlingRoute,
   ConditionsRoute: ConditionsRoute,
   FieldPlannerRoute: FieldPlannerRoute,
+  GlossaryRoute: GlossaryRoute,
+  ScenariosRoute: ScenariosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
